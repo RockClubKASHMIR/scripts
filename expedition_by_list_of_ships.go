@@ -19,7 +19,7 @@ homes = ["M:1:2:3"] // Replace M:1:2:3 with your coordinate - M for the moon, P 
 
 shipsList = {LARGECARGO: 0, LIGHTFIGHTER: 0, PATHFINDER: 1}// Set your Ships list
 
-splitSlots = false //Do you want evenly distribution of EXPO slots per each moon/planet? true = YES / false = NO
+splitSlots = true //Do you want evenly distribution of EXPO slots per each moon/planet? true = YES / false = NO
 sendAtOnce = false //Do you want to send the ships set with quantity 0 at once? true = YES / false = NO
 
 minusCurrentSystem = 5 // Set this as start destination of range coordinates - minus your current world's system
