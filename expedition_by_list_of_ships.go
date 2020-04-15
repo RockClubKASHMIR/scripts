@@ -10,7 +10,7 @@
     a. All ships with quantity 0 that you set will be calculated automatically (full quantity divided by the free EXPO slots)
        - if sendAtOnce = true, all ships set with quantity 0 will be sent at once.
     b. Ships set with quantity different than 0 that you set will be accepted literally, and if any of your ships is even 1 less, the fleet will not be sent.
- 5. You can start the script at certain time. Sending of the fleets will stop after repeats that you set.
+ 5. You can start the script at certain time. The end time is when repeats that you set for fleet send are completed.
  6. Evenly distribution of EXPO slots per each moon/planet (can be turn on/of) 
  */
 
