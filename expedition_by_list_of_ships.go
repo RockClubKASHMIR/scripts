@@ -110,7 +110,6 @@ if homeworld != nil {
             pp = 0
             Dtarget = 0
             marker = home
-            Print(marker+" err = "+err)
             homeworld = GetCachedCelestial(homes[home])
             if homeworld.Coordinate.IsMoon() {
                 Print("Your Moon is: "+homeworld.Coordinate)
