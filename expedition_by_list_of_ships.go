@@ -17,7 +17,7 @@
 homes = ["M:1:2:3"] // Replace M:1:2:3 with your coordinate - M for the moon, P for planet.
 // You can add as many planets/moons you want - the home list must look like this: homes = ["M:1:2:3", "M:2:2:3"]
 
-shipsList = {LARGECARGO: 0, LIGHTFIGHTER: 0, PATHFINDER: 1}// Set your Ships list
+shipsList = {SMALLCARGO: 0, LIGHTFIGHTER: 0, ESPIONAGEPROBE: 1, REAPER: 1, PATHFINDER: 1}// Set your Ships list
 
 splitSlots = true //Do you want evenly distribution of EXPO slots per each moon/planet? true = YES / false = NO
 sendAtOnce = false //Do you want to send the ships set with quantity 0 at once? true = YES / false = NO
@@ -95,13 +95,13 @@ if useStartTime == false {
 if HowManyCycles == 0 {HowManyCycles = false}
 if homeworld != nil {
     CronExec(myTime, func() {
-        if len(shipsList) > 0 {
-            for GetSlots().ExpInUse > 0 {
-                delay = Random(1*60, 2*60)
-                Print("Please wait for the landing of all your EXPO ships! Recheck after "+ShortDur(delay))
-                Sleep(delay*1000)
-            }
-        } else {StopScript(__FILE__)}
+//        if len(shipsList) > 0 {
+//            for GetSlots().ExpInUse > 0 {
+//                delay = Random(1*60, 2*60)
+//                Print("Please wait for the landing of all your EXPO ships! Recheck after "+ShortDur(delay))
+//                Sleep(delay*1000)
+//           }
+//        } else {StopScript(__FILE__)}
         slotMarker = 0
         totalUsl = GetSlots().Total - GetFleetSlotsReserved()
         totalExpSlots = GetSlots().ExpTotal
