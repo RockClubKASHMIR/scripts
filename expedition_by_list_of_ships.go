@@ -14,7 +14,7 @@
  6. Evenly distribution of EXPO slots per each moon/planet (can be turn on/of)
  */
 
-homes = ["M:2:199:3", "M:3:180:14", "M:2:295:3"] // Replace M:1:2:3 with your coordinate - M for the moon, P for planet.
+homes = ["M:1:2:3"] // Replace M:1:2:3 with your coordinate - M for the moon, P for planet.
 // You can add as many planets/moons you want - the home list must look like this: homes = ["M:1:2:3", "M:2:2:3"]
 
 shipsList = {LARGECARGO: 0, LIGHTFIGHTER: 0, PATHFINDER: 1}// Set your Ships list
