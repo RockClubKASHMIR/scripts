@@ -1,6 +1,6 @@
 /***** This script is created by RockClubKASHMIR <discord @RockClubKASHMIR#8058> *****\
  
- v5.2
+ v5.3
  
     DESCRIPTION
  1. Always Keeps reseirved slot
@@ -12,35 +12,39 @@
     b. Ships set with quantity different than 0 that you set will be accepted literally, and if any of your ships is even 1 less, the fleet will not be sent.
  5. You can start this script at specific time. Sending of the fleets will stop after repeats that you set.
  6. Evenly distribution of EXPO slots per each moon/planet (can be turn on/of)
-*/
+ */
 
-homes = ["M:1:2:3"] // Replace M:1:2:3 with your coordinate - M for the moon, P for planet.
+homes = ["M:2:199:3", "M:3:180:14", "M:2:295:3"] // Replace M:1:2:3 with your coordinate - M for the moon, P for planet.
 // You can add as many planets/moons you want - the home list must look like this: homes = ["M:1:2:3", "M:2:2:3"]
 
-shipsList = {SMALLCARGO: 0, LIGHTFIGHTER: 0, ESPIONAGEPROBE: 1, REAPER: 1, PATHFINDER: 1}// Set your Ships list
+shipsList = {LARGECARGO: 0, LIGHTFIGHTER: 0, PATHFINDER: 1}// Set your Ships list
 
-splitSlots = true //Do you want evenly distribution of EXPO slots per each moon/planet? true = YES / false = NO
+useTotalSlotsOnly = false // Do you want to send your fleets only when all EXPO slots are free for each planet/moon? (works only when you use more than 1 planet/moon) true = YES / false = NO
 sendAtOnce = false //Do you want to send the ships set with quantity 0 at once? true = YES / false = NO
-
-minusCurrentSystem = 5 // Set this as start destination of range coordinates - minus your current world's system
-plusCurrentSystem = 5 // Set this as end destination of range coordinates - plus your current world's system
 
 DurationOfExpedition = 1 // Set duration (in hours) of the EXPEDITION: minimum 1 - maximum 8
 PathfindersDebris = true // Do you want to get EXPO debrises? true = YES / false = NO
 Pnbr = 5  // The script will ignore debris less than for PATHFINDERS that you set - The Maximum PATHFINDERS is limited only of your PATHFINDERS on the current moon/planet! You can set this value from 1, to the number you want
+
 PathfinderSystemsRange = true // Do you want to check/get EXPO debris in range systems? true = YES / false = NO
 SystemsRange = false // Do you want to send your EXPO fleet to Range coordinates? true = YES / false = NO
+minusCurrentSystem = 5 // Set this as start destination of range coordinates - minus your current world's system
+RangeRadius = 5  // Set this if SystemsRange = true or/and PathfinderSystemsRange = true 
+
 Repeat = true // Do you want to repeat the full cycle of fleet sending? true = YES / false = NO
 HowManyCycles = 5 // Set the limit of repeats of whole cycle of EXPO fleet sending - 0 means forewer
 
 myTime = "09:33:00"// Set your start Time; Hour: 00 - 23, Minute: 00 - 59
 useStartTime = false // Do you want to run this script at specific time every day? true = YES / false = NO
 
-//-------
+//----- DON'T CHANGE THE CODE BELOW -----\\
 current = 0
 wrong = []
 curentco = {}
+waves = {}
 homeworld = nil
+PauseFarmingBot()
+StopHunter()
 i = 0
 ei = 0
 er = nil
@@ -71,7 +75,10 @@ if len(shipsList) > 0 {
     for ShipID, num in shipsList {
         if num == 0 {calc = 1}
     }
-} else {StopScript(__FILE__)}
+} else {
+    Print("Your Ship's list is emty!")
+    StopScript(__FILE__)
+}
 if !IsDiscoverer() {
     Print("You are not Discoverer and cannot get the EXPO Debris!")
     PathfindersDebris = false
@@ -95,13 +102,6 @@ if useStartTime == false {
 if HowManyCycles == 0 {HowManyCycles = false}
 if homeworld != nil {
     CronExec(myTime, func() {
-//        if len(shipsList) > 0 {
-//            for GetSlots().ExpInUse > 0 {
-//                delay = Random(1*60, 2*60)
-//                Print("Please wait for the landing of all your EXPO ships! Recheck after "+ShortDur(delay))
-//                Sleep(delay*1000)
-//           }
-//        } else {StopScript(__FILE__)}
         slotMarker = 0
         totalUsl = GetSlots().Total - GetFleetSlotsReserved()
         totalExpSlots = GetSlots().ExpTotal
@@ -110,14 +110,15 @@ if homeworld != nil {
             pp = 0
             Dtarget = 0
             marker = home
+            Exprt = 0
             homeworld = GetCachedCelestial(homes[home])
             if homeworld.Coordinate.IsMoon() {
                 Print("Your Moon is: "+homeworld.Coordinate)
             } else {Print("Your Planet is: "+homeworld.Coordinate)}
-            fromSystem = homeworld.GetCoordinate().System - minusCurrentSystem
+            fromSystem = homeworld.GetCoordinate().System - RangeRadius
+            toSystem = homeworld.GetCoordinate().System + RangeRadius
             if fromSystem < 1 {fromSystem = 1}
-            toSystem = homeworld.GetCoordinate().System + plusCurrentSystem
-            if fromSystem > 499 {toSystem = 499}
+            if toSystem > 499 {toSystem = 499}
             crdn = fromSystem
             ExpsTemp = 0
             if SystemsRange == true && cycle >= len(homes)-1 {
@@ -135,8 +136,8 @@ if homeworld != nil {
                 Sleep(800)
                 totalSlots = totalExpSlots
                 times = totalExpSlots
-                if splitSlots == false && sendAtOnce == false {
-                    if calc == 1 {
+                if len(homes) > 1 {
+                    if useTotalSlotsOnly == true && sendAtOnce == false {
                         for slots != 0 {
                             delay = Random(7*60, 12*60)
                             Print("Please wait for the landing of all your EXPO ships! Recheck after "+ShortDur(delay))
@@ -152,20 +153,32 @@ if homeworld != nil {
             if err != nil {slots = totalSlots}
             if slots < totalSlots {
                 Expos = totalExpSlots - slots
-                if splitSlots == true {
+                if useTotalSlotsOnly == false || useTotalSlotsOnly == true && len(homes) == 1 {
                     slotMarker = totalExpSlots-marker
                     times = slotMarker/len(homes)
                     if times > Floor(times) {times = Floor(times) + 1}
                     if times < 1 {times = 1}
-                    if times > Expos {
-                        currentTime = Expos
-                    } else {Expos = times}
+                    Flts, _ = GetFleets()
+                    bk = 0
+                    for f in Flts {
+                        if f.Mission == EXPEDITION {
+                            hh, _ = ParseCoord(homes[home])
+                            if hh == f.Origin {bk = bk + 1}
+                        }
+                    }
+                    currentTime = bk
+                    Expos = times - bk
+                    if Expos <= 0 {
+                        currentTime = times
+                    }
                 }
                 if sendAtOnce == true && calc == 1 {
                     times = 1
                     Expos = 1
                 }
-                Print(Expos+" slots will be used")
+                if Expos <= 0 {
+                    Print("There are no EXPO fleets to send here!")
+                } else {Print(Expos+" slots will be used")}
                 for time = currentTime; time < times; time++ {
                     myShips, _ = homeworld.GetShips()
                     tt = 0
@@ -250,6 +263,7 @@ if homeworld != nil {
                         a, err = fleet.SendNow()
                         if err == nil {
                             cng = 1
+                            waves[homes[home]] = 1
                             slots = slots + 1
                             if sendAtOnce == true {er = "no ships to send"}
                             Print(explist+" are sended successfully to "+Dtarget)
@@ -353,7 +367,6 @@ if homeworld != nil {
                                 if slots > expslots {
                                     err = nil
                                     er = nil
-                                    first = 0
                                 } else {slots = totalSlots}
                             } else {
                                 if cng == 0 {
@@ -367,10 +380,10 @@ if homeworld != nil {
                             if fleetFlag == 0 {Print("Please wait for the landing of All your EXPO ships! Recheck after "+ShortDur(delay))}
                             if fleetFlag == 1 {Print("All slots are busy now! Please, wait "+ShortDur(delay))}
                             if fleetFlag == 2 {Print("All EXPO slots are busy! Please, wait "+ShortDur(delay))}
-                            Sleep(delay*1000)
                             slots = GetSlots().ExpInUse
-                            if splitSlots == false && sendAtOnce == false {
-                                if calc == 1 {
+                            Sleep(delay*1000)
+                            if useTotalSlotsOnly == true && sendAtOnce == false {
+                                if len(homes) > 1 {
                                     if slots < totalExpSlots && slots != 0 {
                                         fleetFlag = 0
                                         slots = totalSlots
@@ -386,9 +399,12 @@ if homeworld != nil {
                 if RepeatTimes != HowManyCycles {
                     current = marker
                     if marker >= len(homes)-1 {
-                        if HowManyCycles != false {
-                            if Repeat == true {Print("You make full cycle of fleet sending "+RepeatTimes+"!")}
-                            RepeatTimes++
+                        if len(waves) == len(homes) {
+                            if HowManyCycles != false {
+                                if Repeat == true {Print("You make full cycle of fleet sending "+RepeatTimes+"!")}
+                                RepeatTimes++
+                                waves = {}
+                            }
                         }
                         current = -1
                         cng = 0
