@@ -3,22 +3,22 @@ discord channel for your personal orders and support - https://discord.gg/zgTuT3
 
 v5.6
  
-    DESCRIPTION
- 1. Always respect reserved slots
+DESCRIPTION
+ 1. This script always respects the reserved slots
  2. Possibility to send EXPEDITION fleets from more than 1 planet/moon
  3. You can set up your ship list by 2 methods (or by combination of both of them):
     a. Automatic: All ships with quantity 0 that you set will be calculated automatically (full quantity divided by the free EXPO slots)
        - if sendAtOnce = true, all ships set with quantity 0 will be sent at once.
     b. Set quantity of all ships by yourself:
-       - the ships set up with this kind of method will be accepted literally, and if any of your ships is even 1 less, the fleet will not be sent
- 4. Possible to send your EXPEDITION fleets at range solar systems or to your solar system only
+       - the ships set up with this method will be accepted literally, and if any of your ships is even 1 less, the fleet will not be sent
+ 4. Possibility to send your EXPEDITION fleets at a range of your solar system or to your solar system only
  5. Evenly distribution of EXPEDITION slots per each moon/planet or use all EXPEDITION slots per every planet/moon
  6. Check for EXPEDITION Debris and recycle them (if you are Discoverer and have Pathfinders)
- 7. Possible to make a scan and recycle debris at range solar systems or to your solar system only
- 8. You can set the minimum amount of pathfinders for recycle
+ 7. Possibility to make a scan and recycle debris at a range of your solar system or to your solar system only
+ 8. You can set a minimum amount of pathfinders for recycling
  9. Sends Pathfinders to same debris more than once only if already sended ships are not enough to get all resources
-10. Possibility to repeat send EXPEDITION fleets many times - you can set how many
-11. You can start this script at specific time. Sending of the fleets will stop after repeats that you set
+10. Possibility to repeat the sending of EXPEDITION fleets many times - you can set how many
+11. You can start this script at a specific time. Sending of the fleets will stop after the number of repeats that you set
 */
 
 homes = ["M:1:2:3"] // Replace M:1:2:3 with your coordinate - M for the moon, P for planet.
