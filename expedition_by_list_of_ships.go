@@ -1,7 +1,6 @@
 /***** This script is created by RockClubKASHMIR <discord @RockClubKASHMIR#8058> *****\
 discord channel for your personal orders and support - https://discord.gg/zgTuT3
-
-v5.6
+v5.7
  
 DESCRIPTION
  1. This script always respects the reserved slots
@@ -116,6 +115,7 @@ if homeworld != nil {
             pp = 0
             Dtarget = 0
             marker = home
+            rcyc = 0
             ls = GetSlots()
             homeworld = GetCachedCelestial(homes[home])
             if homeworld.Coordinate.IsMoon() {
@@ -289,75 +289,78 @@ if homeworld != nil {
                     Sleep(Random(1500, 3000))
                 }
             } else {home = len(homes)-1}
-            if PathfindersDebris == true {
-                dflag = 0
-                abr = 0
-                nbr = 0
-                curSystem = fromSystem
-                if PathfinderSystemsRange == false {
-                    curSystem = homeworld.GetCoordinate().System
-                    toSystem = homeworld.GetCoordinate().System
-                }
-                for system = curSystem; system <= toSystem; system++ {
-                    Sleep(Random(1000, 3000))
-                    systemInfos, _ = GalaxyInfos(homeworld.GetCoordinate().Galaxy, system)
-                    Dtarget, _ = ParseCoord(homeworld.GetCoordinate().Galaxy+":"+system+":"+16)
-                    Debris, _ = ParseCoord("D:"+homeworld.GetCoordinate().Galaxy+":"+system+":"+16)
-                    Print("Checking "+Dtarget)
-                    if systemInfos.ExpeditionDebris.PathfindersNeeded >= Pnbr {
-                        pp = systemInfos.ExpeditionDebris.PathfindersNeeded
-                        if systemInfos.ExpeditionDebris.Metal == 0 && systemInfos.ExpeditionDebris.Crystal > 0 {Print("Found Crystal: "+systemInfos.ExpeditionDebris.Crystal)}
-                        if systemInfos.ExpeditionDebris.Metal > 0 && systemInfos.ExpeditionDebris.Crystal == 0 {Print("Found Metal: "+systemInfos.ExpeditionDebris.Metal)}
-                        if systemInfos.ExpeditionDebris.Metal > 0 && systemInfos.ExpeditionDebris.Crystal > 0 {Print("Found Metal: "+systemInfos.ExpeditionDebris.Metal+" and Crystal: "+systemInfos.ExpeditionDebris.Crystal)}
-                        fleet, _ = GetFleets()
-                        for f in fleet {
-                            if f.Mission == RECYCLEDEBRISFIELD && f.ReturnFlight == false {
-                                if Debris == f.Destination {
-                                    if f.Ships.Pathfinder < pp {
-                                        abr = pp - f.Ships.Pathfinder
-                                    } else {dflag = 1}
+            func sendPathfinders() {
+                if PathfindersDebris == true {
+                    dflag = 0
+                    abr = 0
+                    nbr = 0
+                    curSystem = fromSystem
+                    if PathfinderSystemsRange == false {
+                        curSystem = homeworld.GetCoordinate().System
+                        toSystem = homeworld.GetCoordinate().System
+                    }
+                    for system = curSystem; system <= toSystem; system++ {
+                        Sleep(Random(1000, 3000))
+                        systemInfos, _ = GalaxyInfos(homeworld.GetCoordinate().Galaxy, system)
+                        Dtarget, _ = ParseCoord(homeworld.GetCoordinate().Galaxy+":"+system+":"+16)
+                        Debris, _ = ParseCoord("D:"+homeworld.GetCoordinate().Galaxy+":"+system+":"+16)
+                        Print("Checking "+Dtarget)
+                        if systemInfos.ExpeditionDebris.PathfindersNeeded >= Pnbr {
+                            pp = systemInfos.ExpeditionDebris.PathfindersNeeded
+                            if systemInfos.ExpeditionDebris.Metal == 0 && systemInfos.ExpeditionDebris.Crystal > 0 {Print("Found Crystal: "+systemInfos.ExpeditionDebris.Crystal)}
+                            if systemInfos.ExpeditionDebris.Metal > 0 && systemInfos.ExpeditionDebris.Crystal == 0 {Print("Found Metal: "+systemInfos.ExpeditionDebris.Metal)}
+                            if systemInfos.ExpeditionDebris.Metal > 0 && systemInfos.ExpeditionDebris.Crystal > 0 {Print("Found Metal: "+systemInfos.ExpeditionDebris.Metal+" and Crystal: "+systemInfos.ExpeditionDebris.Crystal)}
+                            fleet, _ = GetFleets()
+                            for f in fleet {
+                                if f.Mission == RECYCLEDEBRISFIELD && f.ReturnFlight == false {
+                                    if Debris == f.Destination {
+                                        if f.Ships.Pathfinder < pp {
+                                            abr = pp - f.Ships.Pathfinder
+                                        } else {dflag = 1}
+                                    }
                                 }
                             }
-                        }
-                        ls = GetSlots()
-                        Sleep(Random(1000, 3000))
-                        aaz = ls.InUse
-                        if aaz < totalUsl {
-                            if dflag == 0 {
-                                myShips, _ = homeworld.GetShips()
-                                f = NewFleet()
-                                f.SetOrigin(homeworld)
-                                f.SetDestination(Dtarget)
-                                f.SetSpeed(HUNDRED_PERCENT)
-                                f.SetMission(RECYCLEDEBRISFIELD)
-                                if abr == 0 {
-                                    nbr = systemInfos.ExpeditionDebris.PathfindersNeeded
-                                } else {nbr = abr}
-                                if nbr > myShips.Pathfinder {nbr = myShips.Pathfinder}
-                                f.AddShips(PATHFINDER, nbr)
-                                a, b = f.SendNow()
-                                if b == nil {
-                                    aaz = aaz + 1
-                                    if aaz == totalUsl {
-                                        fleetFlag = 1
-                                        system = toSystem
+                            ls = GetSlots()
+                            Sleep(Random(1000, 3000))
+                            aaz = ls.InUse
+                            if aaz < totalUsl {
+                                if dflag == 0 {
+                                    myShips, _ = homeworld.GetShips()
+                                    f = NewFleet()
+                                    f.SetOrigin(homeworld)
+                                    f.SetDestination(Dtarget)
+                                    f.SetSpeed(HUNDRED_PERCENT)
+                                    f.SetMission(RECYCLEDEBRISFIELD)
+                                    if abr == 0 {
+                                        nbr = systemInfos.ExpeditionDebris.PathfindersNeeded
+                                    } else {nbr = abr}
+                                    if nbr > myShips.Pathfinder {nbr = myShips.Pathfinder}
+                                    f.AddShips(PATHFINDER, nbr)
+                                    a, b = f.SendNow()
+                                    if b == nil {
+                                        aaz = aaz + 1
+                                        if aaz == totalUsl {
+                                            fleetFlag = 1
+                                            system = toSystem
+                                        }
+                                        if nbr < systemInfos.ExpeditionDebris.PathfindersNeeded {Print("You don't have enough Ships for this debris field!")}
+                                        if nbr > 1 {
+                                            Print(nbr+" Pathfinders are sended successfully!")
+                                        } else {Print(nbr+" Pathfinder is sended successfully!")}
+                                    } else {
+                                        if nbr > 1 {
+                                            Print("The Pathfinders are NOT sended! "+b)
+                                        } else {Print("The Pathfinder is NOT sended! "+b)}
+                                        break
                                     }
-                                    if nbr < systemInfos.ExpeditionDebris.PathfindersNeeded {Print("You don't have enough Ships for this debris field!")}
-                                    if nbr > 1 {
-                                        Print(nbr+" Pathfinders are sended successfully!")
-                                    } else {Print(nbr+" Pathfinder is sended successfully!")}
-                                } else {
-                                    if nbr > 1 {
-                                        Print("The Pathfinders are NOT sended! "+b)
-                                    } else {Print("The Pathfinder is NOT sended! "+b)}
-                                    break
-                                }
-                            } else {Print("Needed ships already are sended!")}
-                        } else {fleetFlag = 1}
+                                } else {Print("Needed ships already are sended!")}
+                            } else {fleetFlag = 1}
+                        }
                     }
+                    if pp == 0 {Print("Not found any debris!")}
                 }
-                if pp == 0 {Print("Not found any debris!")}
             }
+            sendPathfinders()
             if cycle <= len(homes)-1 {cycle++}
             ls = GetSlots()
             if ls.InUse == totalUsl || ls.ExpInUse == totalExpSlots {
@@ -378,7 +381,21 @@ if homeworld != nil {
             }
             if home >= len(homes)-1 {
                 for slots == totalSlots {
-                    delay = Random(7*60, 13*60) // 7 - 13 minutes in seconds
+                    if rcyc == 1 {
+                        Print("Preparing to check for debris...")
+                        Sleep(3000)
+                        for ht in homes {
+                            homeworld = GetCachedCelestial(ht)
+                            fromSystem = homeworld.GetCoordinate().System
+                            toSystem = homeworld.GetCoordinate().System
+                            sendPathfinders()
+                            if fleetFlag == 1 {
+                                err = nil
+                                er = nil
+                            }
+                        }
+                    }
+                    delay = Random(5*60, 7*60) // 7 - 13 minutes in seconds
                     if Repeat == true {
                         if err != nil {
                             slots = GetSlots().ExpInUse
@@ -420,6 +437,7 @@ if homeworld != nil {
                         slots = 1
                         totalSlots = 3
                     }
+                    rcyc = 1
                 }
                 if RepeatTimes != HowManyCycles {
                     if marker >= len(homes)-1 {
