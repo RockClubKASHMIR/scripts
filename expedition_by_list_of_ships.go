@@ -361,7 +361,6 @@ if homeworld != nil {
                     if pp == 0 {Print("Not found any debris!")}
                 }
             }
-            sendPathfinders()
             if cycle <= len(homes)-1 {cycle++}
             ls = GetSlots()
             if ls.InUse == totalUsl || ls.ExpInUse == totalExpSlots {
