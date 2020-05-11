@@ -411,7 +411,7 @@ if homeworld != nil {
                             }
                         }
                     }
-                    delay = Random(5*60, 7*60) // 7 - 13 minutes in seconds
+                    delay = Random(5*60, 7*60) // 5 - 7 minutes in seconds
                     if Repeat == true {
                         if err != nil {
                             slots = GetSlots().ExpInUse
