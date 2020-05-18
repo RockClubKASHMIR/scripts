@@ -6,7 +6,7 @@
 fromSystem = 1 // Your can change this value as you wish
 toSystem = 200 // Your can change this value as you wish
 Rnbr = 0  // If Rnbr = 1, the script will search only debris for minimum 2 Recyclers. You can change this value as you wish
-times = 1 // if times = 1, the script will full scan 2 times the galaxy, from system, to system you want. You can set this value from 0, to the number you want
+times = 3 // if times = 3, the script will full scan 2 times the galaxy, from system, to system you want. 0 means forever repeat
 //----
 cycle = 0
 curSystem = fromSystem
@@ -106,9 +106,8 @@ if origin != nil {
                         break
                     }
                 } else {
-                    Print("You made full scan all systems chosen by you! The script turns off")
-                    SendTelegram(TELEGRAM_CHAT_ID, "You made full scan all systems chosen by you! The script turns off")
-                    break
+                    curSystem = fromSystem-1
+                    system = curSystem
                 }
             }
         } else {
