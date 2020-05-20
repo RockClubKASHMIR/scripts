@@ -4,22 +4,21 @@ discord channel for your personal orders and support - https://discord.gg/zgTuT3
 v1.1
  
     DESCRIPTION
- 1. Always respect reserved slots
+ 1. This script always respect the reserved slots
  2. Checks for EXPEDITION debris and recycle them (if you are Discoverer and have Pathfinders)
- 3. Can check and recycle EXPEDITION debris from more than 1 planet/moon 
- 4. Possible to make a scan and recycle debris at range solar systems
- 5. You can set the minimum amount of pathfinders for recycle
- 6. Sends Pathfinders to same debris only if already sended ships are not enough to get all resources
- 7. Possibility to repeat scanning many times - you can set how many
- 8. Repeats scanning after a minutes that you are set 
+ 3. You can set to recycle EXPEDITION debris from more than 1 planet/moon
+ 4. Possibility to scan and recycle Debris in various solar systems
+ 5. You can set the minimum number of Pathfinders needed for the debris you want to ignore
+ 6. Sends Pathfinders to the same debris fields, only when ships are not enough to get them all
+ 7. Ability to set how many times to scan for debris
+ 8. Repeats the full scanning after the pause in minutes that you set 
  */
 
-homes = ["M:1:2:3"] // Replace M:1:2:3 with your coordinate - M for the moon, P for planet.
-// You can add as many planets/moons you want - the home list must look like this: homes = ["M:1:2:3", "M:2:2:3"]
+homes = ["M:1:2:3"] /* Replace M:1:2:3 with your coordinate - M for the moons, P for the planets.
+  If you want to use more planets/moons, the list must look like this: homes = ["M:1:2:3", "M:2:2:3"] Add as many planets/moons you want*/
 
-
-SystemsRange = true // Do you want to check for debris in range solar systems? true = YES / false = NO
-RangeRadius = 30  // Radius around your solar system.Set this if SystemsRange = true
+SystemsRange = true // Do you want to check for debris in different solar systems? true = YES / false = NO
+RangeRadius = 30  // Set the radius around your solar system that you want to scan. Set desired radius only when SystemsRange = true
 Pnbr = 5  // The script will ignore debris less than for PATHFINDERS that you set - The Maximum PATHFINDERS is limited only of your PATHFINDERS on the current moon/planet! You can set this value from 1, to the number you want
 
 Repeat = true // Do you want to repeat the full scanning for debris? true = YES / false = NO
