@@ -1,7 +1,7 @@
 /***** This script is created by RockClubKASHMIR <discord @RockClubKASHMIR#8058> *****\
-discord channel for your personal orders and support - https://discord.gg/zgTuT3
+ discord channel for your personal orders and support - https://discord.gg/kbsdRCB
 
-v1.1
+ v1.1
  
     DESCRIPTION
  1. This script always respect the reserved slots
