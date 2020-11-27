@@ -28,7 +28,7 @@ shipsList = {LARGECARGO: 0, LIGHTFIGHTER: 0, PATHFINDER: 100}// Set your Ships l
 
 SystemsRange = false // Do you want to send your EXPO fleet to Range coordinates? true = YES / false = NO
 sendWhenFleetBack = false // Do you want every time to wait until all EXPEDITION fleets back before send them all again, for each planet/moon? true = YES / false = NO
-sendAtOnce = false //Do you want to send the ships set with quantity 0 at once? true = YES / false = NO
+sendAtOnce = false // Do you want to send all kinds of ships with quantity 0 as one fleet for each your planet/moon? true = YES / false = NO
 
 DurationOfExpedition = 1 // Set duration (in hours) of the EXPEDITION: minimum 1 - maximum 8
 RangeRadius = 5  // Set this if SystemsRange = true or/and PathfinderSystemsRange = true 
