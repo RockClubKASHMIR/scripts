@@ -9,8 +9,8 @@
  3. You can set up your ship list by 2 methods (or by combination of both of them):
     a. Automatic: All ships with quantity 0 that you set will be calculated automatically (full quantity divided by the free EXPO slots)
        - if sendAtOnce = true, all kinds of ships set with quantity 0 will be sent as one fleet for each planet/moon.
-    b. Set quantity of all ships by yourself:
-       - the ships set up with this method will be accepted literally, and if any of your ships is even 1 less, the fleet will not be sent
+    b. Set quantity of all kind of ships by yourself:
+       - the ships set with this method will be accepted literally, and if any of your ships are even 1 less that you set, the fleet will not be sent
  4. Possibility to send your fleets to expedition mission at a radius around of your solar system or only to your solar system
  5. Evenly distribution of EXPEDITION slots per each moon/planet or use all EXPEDITION slots per every planet/moon
  6. Check for EXPEDITION Debris and recycle them (if you are Discoverer and have Pathfinders)
