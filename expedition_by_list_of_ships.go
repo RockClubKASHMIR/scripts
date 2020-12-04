@@ -1,7 +1,7 @@
 /***** This script is created by RockClubKASHMIR <discord @RockClubKASHMIR#8058> *****\
  discord channel for your personal orders and support - https://discord.gg/kbsdRCB
  
-    v5.9
+    v6.0
  
     DESCRIPTION
  1. This script always respects the reserved slots
@@ -11,28 +11,27 @@
        - if sentence = true, all kinds of ships set with quantity 0 will be sent as one fleet for each planet/moon.
     b. Manual: Enter the quantity of all kind of type of ships by yourself:
        - the ships set with this method will be accepted literally, and if any kind type of your ships is even 1 less than the quantity you set, the fleet will not be sent!
- 4. Possibility to send the fleets on EXPEDITION mission to the radius of solar systems entered by you around your current solar system or only to your solar system
- 5. Ability to send the fleets on EXPEDITION mission to your current solar system only
- 6. Evenly distribution of EXPEDITION slots per each moon/planet or use all EXPEDITION slots per every planet/moon
- 7. Check for EXPEDITION Debris and recycle them (if you are Discoverer and have Pathfinders)
- 8. Possibility to make a scan and recycle debris at a range of your solar system or to your solar system only
- 9. You can set a minimum amount of pathfinders for recycling
-10. Sends Pathfinders to same debris more than once only if already sent ships are not enough to get all resources
-11. Possibility to repeat the sending of EXPEDITION fleets many times - you can set how many
-12. You can start this script at a specific time. Sending of the fleets will stop after the number of repeats that you set
+ 4. Possibility to send the fleets on EXPEDITION mission to the radius of solar systems entered by you around your current solar system or only to your current solar system
+ 5. Evenly distribution of EXPEDITION slots per each moon/planet or use all EXPEDITION slots per every planet/moon
+ 6. Check for EXPEDITION Debris and recycle them (if you are Discoverer and have Pathfinders)
+ 7. Possibility to make a scan and recycle debris at a range of your solar system or to your solar system only
+ 8. You can set a minimum amount of pathfinders for recycling
+ 9. Sends Pathfinders to same debris more than once only if already sent ships are not enough to get all resources
+10. Possibility to repeat the sending of EXPEDITION fleets many times - you can set how many
+11. You can start this script at a specific time. Sending of the fleets will stop after the number of repeats that you set
 */
 
-homes = ["M:1:2:3"] // Replace M:1:2:3 with your coordinate - M for the moon, P for planet.
-// You can add as many planets/moons you want - the list of planets/moons must look like this: homes = ["M:1:2:3", "M:2:2:3"]
+homes = ["M:1:2:3"] // Replace coordinates M:1:2:3 with your coordinates. "M" means moon, "P" means planet.
+// You can add as many planets/moons you want. The list of planets/moons should look like this: homes = ["M:1:2:3", "M:2:2:3"]
 
 shipsList = {LARGECARGO: 0, LIGHTFIGHTER: 0, PATHFINDER: 100}// Set your list of the ships
 
-SystemsRange = false // Do you want the fleets sent on the EXPEDITION mission to be sent in a radius of systems around your current system? true = YES / false = NO
+DurationOfExpedition = 1 // Enter duration (in hours) of the EXPEDITION: minimum 1 - maximum 8 hours
 sendWhenFleetBack = false // Do you want to wait for the return of all fleets sent on the EXPEDITION mission before sending them all again? true = YES / false = NO
 sendAtOnce = false // Do you want to send all kinds of ships with quantity 0 as one fleet for each your planet/moon? true = YES / false = NO
 
-DurationOfExpedition = 1 // Enter duration (in hours) of the EXPEDITION: minimum 1 - maximum 8 hours
-RangeRadius = 5  // Enter the radius of systems around your current system you want to send your fleets 
+RangeRadius = 5  // Enter the radius of systems around your current system you want to send your fleets (only if you planning to use this option) 
+SystemsRange = false // Do you want to send the fleets sent on the EXPEDITION mission in a radius of systems around your current solar system? true = YES / false = NO
 
 PathfindersDebris = true // Do you want to detect/get debris from EXPEDITION? true = YES / false = NO
 Pnbr = 5  // Enter the minimum quantity of Pathfinders that can take the desired minimum amount of EXPEDITION debris
@@ -443,10 +442,10 @@ if homeworld != nil {
                         } else {
                             if rcyc == 1 {delay = totaltime}
                             if fleetFlag == 0 {Print("Please, wait till all your fleets sent on EXPEDITION arrives! Please, wait "+ShortDur(delay))}
-                            if fleetFlag == 1 {Print("All slots are busy now! Please, wait "+ShortDur(delay))}
+                            if fleetFlag == 1 {Print("The maximum number of flights has been reached! Please, wait "+ShortDur(delay))}
                             if fleetFlag == 2 {
-                                if delay == 1 {Print("All EXPO slots are busy!")}
-                                if delay > 1 {Print("All EXPO slots are busy! Please, wait "+ShortDur(delay))}
+                                if delay == 1 {Print("All slots for Expedition are busy!")}
+                                if delay > 1 {Print("All slots for Expedition are busy! Please, wait "+ShortDur(delay))}
                             }
                             Sleep(delay*1000)
                             if fleetFlag == 1 {slots = GetSlots().InUse}
