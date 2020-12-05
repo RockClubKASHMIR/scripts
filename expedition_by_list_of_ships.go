@@ -21,23 +21,22 @@
 11. You can start this script at a specific time. Sending of the fleets will stop after the number of repeats that you set
 */
 
-homes = ["M:1:2:3"] // Replace coordinates M:1:2:3 with your coordinates. "M" means moon, "P" means planet.
+homes = ["M:2:205:8", "M:4:182:5"] // Replace coordinates M:1:2:3 with your coordinates. "M" means moon, "P" means planet.
 // You can add as many planets/moons you want. The list of planets/moons should look like this: homes = ["M:1:2:3", "M:2:2:3"]
 
 shipsList = {LARGECARGO: 0, LIGHTFIGHTER: 0, PATHFINDER: 100}// Set your list of the ships
 
-DurationOfExpedition = 1 // Enter duration (in hours) of the EXPEDITION: minimum 1 - maximum 8 hours
+RangeRadius = 5  // Enter the radius of systems around your current system you want to send your fleets (only if you planning to use this option) 
+SystemsRange = false // Do you want to send the fleets sent on the EXPEDITION mission in a radius of systems around your current solar system? true = YES / false = NO
 sendWhenFleetBack = false // Do you want to wait for the return of all fleets sent on the EXPEDITION mission before sending them all again? true = YES / false = NO
 sendAtOnce = false // Do you want to send all kinds of ships with quantity 0 as one fleet for each your planet/moon? true = YES / false = NO
 
-RangeRadius = 5  // Enter the radius of systems around your current system you want to send your fleets (only if you planning to use this option) 
-SystemsRange = false // Do you want to send the fleets sent on the EXPEDITION mission in a radius of systems around your current solar system? true = YES / false = NO
+DurationOfExpedition = 1 // Enter duration (in hours) of the EXPEDITION: minimum 1 - maximum 8 hours
+Repeat = true // Do you want to repeat the full cycle of fleet sending? true = YES / false = NO
+HowManyCycles = 5 // Set the limit of repeats of whole cycle of EXPO fleet sending - 0 means forewer
 
 PathfindersDebris = true // Do you want to detect/get debris from EXPEDITION? true = YES / false = NO
 Pnbr = 5  // Enter the minimum quantity of Pathfinders that can take the desired minimum amount of EXPEDITION debris
-
-Repeat = true // Do you want to repeat the full cycle of fleet sending? true = YES / false = NO
-HowManyCycles = 5 // Set the limit of repeats of whole cycle of EXPO fleet sending - 0 means forewer
 
 myTime = "09:33:00"// Enter the time of starting the fleets sending; Hour: 00 - 23, Minute: 00 - 59, Seconds: 00 - 59
 useStartTime = false // Do you want to run this script at a specific time every day? true = YES / false = NO
