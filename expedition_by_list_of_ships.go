@@ -21,10 +21,10 @@
 11. You can start this script at a specific time. Sending of the fleets will stop after the number of repeats that you set
 */
 
-homes = ["M:2:205:8", "M:4:182:5"] // Replace coordinates M:1:2:3 with your coordinates. "M" means moon, "P" means planet.
+homes = ["M:1:2:3", "M:2:2:3"] // Replace coordinates M:1:2:3 with your coordinates. "M" means moon, "P" means planet.
 // You can add as many planets/moons you want. The list of planets/moons should look like this: homes = ["M:1:2:3", "M:2:2:3"]
 
-shipsList = {LARGECARGO: 0, LIGHTFIGHTER: 0, PATHFINDER: 100}// Set your list of the ships
+shipsList = {LARGECARGO: 2000, LIGHTFIGHTER: 0, PATHFINDER: 150}// Set your list of the ships
 
 RangeRadius = 5  // Enter the radius of systems around your current system you want to send your fleets (only if you planning to use this option) 
 SystemsRange = false // Do you want to send the fleets sent on the EXPEDITION mission in a radius of systems around your current solar system? true = YES / false = NO
@@ -399,8 +399,7 @@ if homeworld != nil {
                         if f.Mission == EXPEDITION {
                             if f.ReturnFlight == true {
                                 ttargets[f.Destination] = f.Origin
-                                totaltime = f.BackIn
-                                delay = 1
+                                u = f.BackIn
                             }
                             if f.ReturnFlight == false {u = (f.ArriveIn+4)+3600*DurationOfExpedition}
                             if u < 0 {u = u*-1}
