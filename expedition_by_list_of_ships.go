@@ -395,16 +395,15 @@ if homeworld != nil {
                     ttargets = {}
                     fleet, _ = GetFleets()
                     for f in fleet {
-                        u = 0
+                        u = f.BackIn+4
                         if f.Mission == EXPEDITION {
                             if f.ReturnFlight == true {
                                 ttargets[f.Destination] = f.Origin
-                                u = f.BackIn
                             }
-                            if f.ReturnFlight == false {u = (f.ArriveIn+4)+3600*DurationOfExpedition}
+                            if f.ReturnFlight == false {u = u+3600*DurationOfExpedition}
                             if u < 0 {u = u*-1}
                             if u > 0 {
-                                if delay > u {delay = u}
+                                if delay < u {delay = u}
                             }
                         }
                     }
