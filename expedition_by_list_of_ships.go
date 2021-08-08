@@ -389,6 +389,7 @@ if homeworld != nil {
                     delay = 0
                     totaltime = delay
                     ttargets = {}
+		    PathTime = 0
                     fleet, _ = GetFleets()
                     for f in fleet {
                         u = f.BackIn+4
