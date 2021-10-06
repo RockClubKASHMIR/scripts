@@ -21,7 +21,7 @@
 11. You can start this script at a specific time. Sending of the fleets will stop after the number of repeats that you set
 */
 
-homes = ["M:5:16:6"] // Replace coordinates M:1:2:3 with your coordinates. "M" means moon, "P" means planet.
+homes = ["M:1:2:3"] // Replace coordinates M:1:2:3 with your coordinates. "M" means moon, "P" means planet.
 // You can add as many planets/moons you want. The list of planets/moons should look like this: homes = ["M:1:2:3", "M:2:2:3"]
 
 shipsList = {LARGECARGO: 0, LIGHTFIGHTER: 0, PATHFINDER: 150}// Set your list of the ships
