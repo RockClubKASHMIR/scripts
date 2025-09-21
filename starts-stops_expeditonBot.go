@@ -2,21 +2,21 @@
   discord channel for your personal orders and support - https://discord.gg/kbsdRCB
   
      DESCRIPTION
-  1. Starts and stops the Expedition Bot at certain time
-     If you need to start/stop another function, just replace StartExpeditionsBot() and StopExpeditionsBot() with whatever you want
+  1. Starts and stops the desired function or code you add at a certain time 
+     Replace StartingAtsBot() and StoppingAtsBot() with your desired function or code, then click Save Script
 */
 
-StartExpedition = "10:23:39"
-StopExpedition = "20:00:00"
+StartingAt = "10:23:39"
+StoppingAt = "20:00:00"
 
-CronExec(StartExpedition, func() {
-    StartExpeditionsBot()
-    LogInfo("The expeditions Bot starts at "+NowTimeString())
+CronExec(StartingAt, func() {
+    StartingAtsBot()
+    LogInfo("The function/or code starts at "+NowTimeString())
 })
 
-CronExec(StopExpedition, func() {
-    StopExpeditionsBot()
-    LogInfo("The expeditions Bot stops at "+NowTimeString())
+CronExec(StoppingAt, func() {
+    StoppingAtsBot()
+    LogInfo("The function/or code stops at "+NowTimeString())
 })
 
 <-OnQuitCh
