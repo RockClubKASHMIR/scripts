@@ -3,19 +3,19 @@
   
      DESCRIPTION
   1. Starts and stops the desired function or code you add at a certain time 
-     Replace StartingAtsBot() and StoppingAtsBot() with your desired function or code, then click Save Script
+     Replace StartExpeditionsBot() and StopExpeditionsBot() with your desired function or code, then click Save Script
 */
 
 StartingAt = "10:23:39"
 StoppingAt = "20:00:00"
 
 CronExec(StartingAt, func() {
-    StartingAtsBot()
+    StartExpeditionsBot()
     LogInfo("The function/or code starts at "+NowTimeString())
 })
 
 CronExec(StoppingAt, func() {
-    StoppingAtsBot()
+    StopExpeditionsBot()
     LogInfo("The function/or code stops at "+NowTimeString())
 })
 
